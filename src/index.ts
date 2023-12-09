@@ -20,10 +20,12 @@ export class ExpoMixpanelAnalytics {
   queue: any[] = [];
   constants: { [key: string]: string | number | void } = {};
   superProps: any = {};
-  brand?:string
+  brand?:string;
+  apiUrl?:string;
 
-  constructor(token, storageKey = "mixpanel:super:props") {
+  constructor(token, storageKey = "mixpanel:super:props", apiUrl = MIXPANEL_API_URL) {
     this.storageKey = storageKey;
+    this.apiUrl = apiUrl;
 
     this.token = token;
     this.userId = null;
@@ -166,12 +168,12 @@ export class ExpoMixpanelAnalytics {
 
     const buffer = new Buffer(JSON.stringify(data)).toString("base64");
 
-    return fetch(`${MIXPANEL_API_URL}/track/?data=${buffer}`);
+    return fetch(`${this.apiUrl}/track/?data=${buffer}`);
   }
 
   _pushProfile(data) {
     data = new Buffer(JSON.stringify(data)).toString("base64");
-    return fetch(`${MIXPANEL_API_URL}/engage/?data=${data}`);
+    return fetch(`${this.apiUrl}/engage/?data=${data}`);
   }
 }
 
