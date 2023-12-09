@@ -12,7 +12,8 @@ export declare class ExpoMixpanelAnalytics {
     };
     superProps: any;
     brand?: string;
-    constructor(token: any, storageKey?: string);
+    apiUrl?: string;
+    constructor(token: any, storageKey?: string, apiUrl?: string);
     register(props: any): void;
     track(name: string, props?: any): void;
     identify(userId?: string): void;
